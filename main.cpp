@@ -19,21 +19,13 @@ struct Машина {
         return os;
     }
     friend std::istream& operator>>(std::istream& is, Машина& машина) {
-        int йд;
-        is >> йд;
-        if (йд==0) {
-            машина.id = rand()%2024;
-        }
-        else {
-            машина.id = йд;
-        }
+        is >> машина.id;
         return is;
     }
 };
 class Стоянка {
 private:
     std::forward_list<Машина> Машины;
-    std::map<int, int> counts; 
 public:
     Стоянка() {}
     void вставить(Машина машина) {
