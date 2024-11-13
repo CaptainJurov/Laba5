@@ -82,7 +82,7 @@ int main() {
         int id;
         std::cout << Colors::зачёрк << "\nВводи <номер машины>: ";
         std::cin >> id;
-        std::cout<<Colors::reset;
+        std::cout<<Colors::reset<<"\n";
         if (id==0) {break;}
         Машина prim(id);
         гараж.достать(prim);
