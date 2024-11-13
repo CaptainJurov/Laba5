@@ -68,7 +68,6 @@ public:
 
 int main() {   
     Стоянка гараж;
-    std::cout<<Colors::red<<"CBO ENERGY\n"<<Colors::reset;
     for (;;) {
         Машина машина;
         int inp;
