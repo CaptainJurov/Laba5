@@ -58,23 +58,22 @@ public:
             std::cout << "пусто" << std::endl;
         } else {
             std::copy(Машины.begin(), Машины.end(), std::ostream_iterator<Машина>(std::cout, "\n"));
-            std::cout<<"----------\n";
+            std::cout<<"------\n";
         }
     }
 };
 
 int main() {
     Стоянка гараж;
-
-    std::cout<<"Вводи <Номер>:\n";
     for (;;) {
         Машина машина;
         int inp;
+        std::cout<<"Вводи <Номер>:\n";
         std::cin >> inp;
         if (inp == 0) {break;}
         гараж.вставить(Машина(inp));
-        std::cout<<"Next:\n";
     }
+    гараж.show();
     for (;;) {
         int id;
         std::cout << "Введите <номер машины>: ";
@@ -84,6 +83,5 @@ int main() {
         гараж.достать(prim);
         гараж.show();
     }
-
     return 0;
 }
