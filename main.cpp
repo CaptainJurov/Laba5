@@ -1,11 +1,6 @@
 #include <iostream>
 #include <iterator>
-#include <stack>
-#include <map>
-#include <string>
 #include <algorithm>
-#include <vector>
-#include <list>
 #include <forward_list>
 struct Машина {
     int id;
@@ -32,43 +27,38 @@ public:
         Машины.push_front(машина);
         std::cout << "Автомобиль " << машина.id << " прибыл." << std::endl;
     }
-    void вставить(std::vector<Машина>& vec) {
-        for (auto i=vec.begin(); i!=vec.end();i++) {
-            std::cout << *i;
-            вставить(Машина(*i));
-        }
-    }
     auto GS() {
         return Машины;
     }
-    void достать(Машина машина) {
+    void достать(Машина& машина) {
+        if (Машины.empty()) {
+            std::cout<<"Стоянка пуста!\n";
+            return;
+        }
         std::forward_list<Машина> temp;
         auto iter = Машины.begin();
-        while (!Машины.empty() and (*iter) != машина) {
+        while (iter!=Машины.end() and (*iter) != машина) {
             iter++;
+            if (iter==Машины.end()) {
+                std::cout << "Автомобиль " << машина << " не найден на стоянке." << std::endl;
+                return;
+            }
         }
-        if (!Машины.empty()) {
-            temp.splice_after(temp.before_begin(), Машины, Машины.cbegin(), iter); //
-            std::copy(temp.begin(), temp.end(), std::ostream_iterator<Машина>(std::cout, " Временно выехал со стоянки\n"));
-            std::cout << "Автомобиль " << машина.id << " успешно уехал со стоянки." << std::endl;
-            Машины.erase_after(iter);
-        }
-        else {
-            std::cout << "Автомобиль " << машина.id << " не найден на стоянке." << std::endl;
-        }
+        temp.splice_after(temp.before_begin(), Машины, Машины.before_begin(), iter);
+        std::copy(temp.begin(), temp.end(), std::ostream_iterator<Машина>(std::cout, " Временно выехал со стоянки\n"));
+        std::cout << "Автомобиль " << Машины.front() << " успешно уехал со стоянки." << std::endl;
+        Машины.pop_front();
+        Машины.splice_after(Машины.before_begin(), temp);
+        std::copy(temp.begin(), temp.end(), std::front_inserter(Машины));
     }
 
     void show() {
-        std::cout << "Машины на стоянке:\n";
+        std::cout << "------\nМашины на стоянке:\n";
         if (Машины.empty()) {
             std::cout << "пусто" << std::endl;
         } else {
-            std::forward_list<Машина> temp = Машины;
-            while (!temp.empty()) {
-                std::cout << (*temp.begin()).id << " ";
-                temp.pop_front();
-            }
-            std::cout << std::endl;
+            std::copy(Машины.begin(), Машины.end(), std::ostream_iterator<Машина>(std::cout, "\n"));
+            std::cout<<"----------\n";
         }
     }
 };
@@ -76,7 +66,7 @@ public:
 int main() {
     Стоянка гараж;
 
-    std::cout<<"Вводи id машин для заполнения стэка:\n";
+    std::cout<<"Вводи <Номер>:\n";
     for (;;) {
         Машина машина;
         int inp;
@@ -89,7 +79,9 @@ int main() {
         int id;
         std::cout << "Введите <номер машины>: ";
         std::cin >> id;
-        гараж.достать(Машина(id));
+        if (id==0) {break;}
+        Машина prim(id);
+        гараж.достать(prim);
         гараж.show();
     }
 
