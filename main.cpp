@@ -67,7 +67,7 @@ public:
 };
 
 int main() {   
-    Стоянка гараж;
+    Стоянка * гараж = new Стоянка;
     for (;;) {
         Машина машина;
         int inp;
@@ -75,9 +75,9 @@ int main() {
         std::cin >> inp;
         std::cout<<Colors::reset;
         if (inp == 0) {break;}
-        гараж.вставить(Машина(inp));
+        гараж->вставить(Машина(inp));
     }
-    гараж.show();
+    гараж->show();
     for (;;) {
         int id;
         std::cout << Colors::зачёрк << "\nВводи <номер машины>: ";
@@ -85,9 +85,9 @@ int main() {
         std::cout<<Colors::reset<<"\n";
         if (id==0) {break;}
         Машина prim(id);
-        гараж.достать(prim);
-        гараж.show();
+        гараж->достать(prim);
+        гараж->show();
     }
-    
+    delete гараж;
     return 0;
 }
