@@ -54,7 +54,7 @@ public:
         std::copy(temp.begin(), temp.end(), std::front_inserter(Машины));
         std::cout<<Colors::reset;
     }
-
+    
     void show() {
         std::cout << Colors::недозелёный <<"Машины на стоянке:\n"<<Colors::ital;
         if (Машины.empty()) {
