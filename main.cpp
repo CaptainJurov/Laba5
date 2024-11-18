@@ -71,7 +71,9 @@ int main() {
     for (;;) {
         Машина машина;
         int inp;
-        std::cout<< Colors::зачёрк <<"\nВводи <Номер>: ";
+        std::cout<<Colors::clear;
+        гараж->show();
+        std::cout << Colors::зачёрк <<"\nВводи <Номер>: ";
         std::cin >> inp;
         std::cout<<Colors::reset;
         if (inp == 0) {break;}
