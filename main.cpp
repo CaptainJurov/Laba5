@@ -76,7 +76,7 @@ int main() {
         std::cout << Colors::зачёрк <<"\nВводи <Номер>: ";
         std::cin >> inp;
         std::cout<<Colors::reset;
-        if (inp == 0) {break;}
+        if (inp == 0) {std::cout<<Colors::clear;break;}
         гараж->вставить(Машина(inp));
     }
     гараж->show();
